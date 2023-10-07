@@ -9,6 +9,11 @@ class Race:
     self.__course = course
     self.__condition = condition
     self.__horses = horses
+    self.__result = None
+
+  # 学習用の結果を設定
+  def set_result(self, first: int, second: int, third: int):
+    self.__result = [first, second, third]
 
   # 学習・予測に必要なデータフレームを生成
   def build(self, horse_bank: HorseBank) -> pd.DataFrame:
@@ -23,6 +28,8 @@ class Race:
       data['Condition'] = self.__condition
       data['ArrivalAvg'] = horse_data['ArrivalAvg']
       data['3FalongAvg'] = horse_data['3FalongAvg']
+      if self.__result != None:
+        data['IsPlace'] = 1 if no in self.__result else 0
       no += 1
       data_list.append(data)
     return pd.DataFrame(data_list)

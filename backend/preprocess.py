@@ -45,6 +45,8 @@ for id, r_df in group:
   condition = r_df['Condition'].values[0]
   horses = r_df['Name'].values
   race = mdl.Race(course, condition, horses)
+  result = r_df.sort_values('Arrival', inplace=False)['No'].values
+  race.set_result(result[0], result[1], result[2])
   bank.add(id, race)
 with open('./pickles/race.pickle', 'wb') as f:
   pickle.dump(bank, f)
