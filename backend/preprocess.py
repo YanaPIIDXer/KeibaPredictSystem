@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import modules as mdl
+import pickle
 
 df = pd.read_csv('./datasets/origin.csv')
 
@@ -22,4 +24,12 @@ df['ArrivalDiff'] = df['ArrivalDiff'].astype(np.float32)
 categorical_features = ['Condition', 'Sex', 'Jockey', 'Course']
 df[categorical_features] = df[categorical_features].astype('category')
 
-
+# 馬ごとにオブジェクトを生成して保存
+names = df['Name'].unique()
+group = df.groupby('Name')
+bank = mdl.HorseBank()
+for name, h_df in group:
+  horse = mdl.Horse(h_df)
+  bank.add(name, horse)
+with open('./pickles/horse.pickle', 'wb') as f:
+  pickle.dump(bank, f)
