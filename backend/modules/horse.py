@@ -5,13 +5,12 @@ class Horse:
   # コンストラクタ
   def __init__(self, df: pd.DataFrame):
     self.__df = df.copy().sort_values('Date')
-
-  # 学習・予測に必要なデータを生成
-  def build(self, condition: str) -> object:
     # 過去３走の平均着順と上がり３ハロン
     self.__df['ArrivalAvg'] = self.__df['Arrival'].transform(lambda x: x.rolling(3, min_periods=1).mean().shift(1))
     self.__df['3FalongAvg'] = self.__df['3Falong'].transform(lambda x: x.rolling(3, min_periods=1).mean().shift(1))
-    
+
+  # 学習・予測に必要なデータを生成
+  def build(self, condition: str) -> object:
     return {
       'ArrivalAvg': self.__df.tail(1)['ArrivalAvg'].values[0],
       '3FalongAvg': self.__df.tail(1)['3FalongAvg'].values[0],
