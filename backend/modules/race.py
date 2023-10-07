@@ -41,3 +41,10 @@ class RaceBank:
   def get(self, id: str) -> Race:
     return self.__list[id]
   
+  # 全取得
+  def get_all(self) -> List[Race]:
+    list = []
+    for _, race in self.__list.items():
+      list.append(race)
+    return list
+  
