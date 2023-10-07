@@ -5,6 +5,7 @@ class Horse:
   # コンストラクタ
   def __init__(self, df: pd.DataFrame):
     self.df = df.copy()
+    self.df.sort_values('Date')
 
 # 全ての馬情報を格納するクラス
 class HorseBank:
