@@ -22,4 +22,4 @@ df['ArrivalDiff'] = df['ArrivalDiff'].astype(np.float32)
 categorical_features = ['Condition', 'Sex', 'Jockey', 'Course']
 df[categorical_features] = df[categorical_features].astype('category')
 
-print(df.head())
+
