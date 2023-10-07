@@ -43,7 +43,7 @@ bank = mdl.RaceBank()
 for id, r_df in group:
   course = r_df['Course'].values[0]
   condition = r_df['Condition'].values[0]
-  horses = r_df['Name'].values
+  horses = r_df[['Name', 'Jockey']].values
   race = mdl.Race(course, condition, horses)
   result = r_df.sort_values('Arrival', inplace=False)['No'].values
   race.set_result(result[0], result[1], result[2])

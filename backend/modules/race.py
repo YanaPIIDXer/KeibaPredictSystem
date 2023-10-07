@@ -2,13 +2,19 @@ import pandas as pd
 from typing import List
 from .horse import HorseBank
 
+# レースに出走する馬の情報
+class RaceHorse:
+  def __init__(self, name: str, jockey: str):
+    self.name = name
+    self.jockey = jockey
+
 # レース情報クラス
 class Race:
   # コンストラクタ
-  def __init__(self, course: str, condition: str, horses: List[str]):
+  def __init__(self, course: str, condition: str, horse_infos: List):
     self.__course = course
     self.__condition = condition
-    self.__horses = horses
+    self.__horse_infos = horse_infos
     self.__result = None
 
   # 学習用の結果を設定
@@ -19,13 +25,16 @@ class Race:
   def build(self, horse_bank: HorseBank) -> pd.DataFrame:
     no = 1
     data_list = []
-    for h_name in self.__horses:
+    for info in self.__horse_infos:
       data = {}
-      horse_data = horse_bank.get(h_name).build(self.__condition)
+      name = info[0]
+      jockey = info[1]
+      horse_data = horse_bank.get(name).build(self.__condition)
       data['No'] = no
-      data['Name'] = h_name
+      data['Name'] = name
       data['Course'] = self.__course
       data['Condition'] = self.__condition
+      data['Jockey'] = jockey
       data['ArrivalAvg'] = horse_data['ArrivalAvg']
       data['3FalongAvg'] = horse_data['3FalongAvg']
       if self.__result != None:
