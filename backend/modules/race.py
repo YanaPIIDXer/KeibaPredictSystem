@@ -16,10 +16,12 @@ class Race:
     df_list = []
     for h_name in self.__horses:
       df = pd.DataFrame(index=[no])
+      data = horse_bank.get(h_name).build()
       df['No'] = no
       df['Name'] = h_name
       df['Course'] = self.__course
       df['Condition'] = self.__condition
+      df['ArrivalAvg'] = data['ArrivalAvg']
       no += 1
       df_list.append(df)
     return pd.concat(df_list)
