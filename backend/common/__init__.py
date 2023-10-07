@@ -1,2 +1,2 @@
-from .horse import Horse
+from .horse import Horse, HorseBank
 from .race import Race
