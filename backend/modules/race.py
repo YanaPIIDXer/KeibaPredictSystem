@@ -16,6 +16,7 @@ class Race:
     df_list = []
     for h_name in self.__horses:
       df = pd.DataFrame(index=[no])
+      df['No'] = no
       df['Name'] = h_name
       df['Course'] = self.__course
       df['Condition'] = self.__condition
