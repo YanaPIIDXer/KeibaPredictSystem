@@ -1,4 +1,3 @@
-import pandas as pd
 from typing import List
 
 # レース情報クラス
