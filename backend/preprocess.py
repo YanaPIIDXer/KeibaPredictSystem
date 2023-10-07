@@ -25,11 +25,22 @@ categorical_features = ['Condition', 'Sex', 'Jockey', 'Course']
 df[categorical_features] = df[categorical_features].astype('category')
 
 # 馬ごとにオブジェクトを生成して保存
-names = df['Name'].unique()
 group = df.groupby('Name')
 bank = mdl.HorseBank()
 for name, h_df in group:
   horse = mdl.Horse(h_df)
   bank.add(name, horse)
 with open('./pickles/horse.pickle', 'wb') as f:
+  pickle.dump(bank, f)
+
+# レースごとにオブジェクトを生成して保存
+group = df.groupby('RaceID')
+bank = mdl.RaceBank()
+for id, r_df in group:
+  course = r_df['Course'].values[0]
+  condition = r_df['Condition'].values[0]
+  horses = r_df['Name'].values
+  race = mdl.Race(course, condition, horses)
+  bank.add(id, race)
+with open('./pickles/race.pickle', 'wb') as f:
   pickle.dump(bank, f)

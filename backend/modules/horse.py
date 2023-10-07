@@ -15,3 +15,7 @@ class HorseBank:
   # 追加
   def add(self, name: str, horse: Horse):
     self.__list[name] = horse
+
+  # 取得
+  def get(self, name: str) -> Horse:
+    return self.__list[name]
