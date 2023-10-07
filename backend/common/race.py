@@ -1,7 +1,10 @@
 import pandas as pd
+from typing import List
 
 # レース情報クラス
 class Race:
   # コンストラクタ
-  def __init__(self, df: pd.DataFrame):
-    self.df = df.copy()
+  def __init__(self, course: str, condition: str, horses: List[str]):
+    self.course = course
+    self.condition = condition
+    self.horses = horses
