@@ -32,16 +32,21 @@ class Race:
       horse_data = horse_bank.get(name).build(self.__condition)
       data['No'] = no
       data['Name'] = name
+      if self.__result != None:
+        data['IsPlace'] = 1 if no in self.__result else 0
       data['Course'] = self.__course
       data['Condition'] = self.__condition
       data['Jockey'] = jockey
       data['ArrivalAvg'] = horse_data['ArrivalAvg']
       data['3FalongAvg'] = horse_data['3FalongAvg']
-      if self.__result != None:
-        data['IsPlace'] = 1 if no in self.__result else 0
       no += 1
       data_list.append(data)
-    return pd.DataFrame(data_list)
+    df = pd.DataFrame(data_list)
+
+    t_falong_avg = df['3FalongAvg'].mean()
+    df['3FalongAvgDiff'] = df['3FalongAvg'] - t_falong_avg
+
+    return df
 
 # レース情報保管クラス
 class RaceBank:
