@@ -14,10 +14,15 @@ class Horse:
 
   # 学習・予測に必要なデータを生成
   def build(self, condition: str) -> object:
+    cond_df = self.__df[self.__df['Condition'] == condition].copy()
+    # 引数に取った馬場状態と同じ馬場状態の過去３走分の上がり３ハロン
+    cond_df['Condition3FalongAvg'] = cond_df['3Falong'].transform(lambda x: x.rolling(3, min_periods=1).mean().shift(1))
+    
     return {
       'ArrivalAvg': self.__df.tail(1)['ArrivalAvg'].values[0],
       '3FalongAvg': self.__df.tail(1)['3FalongAvg'].values[0],
       'LastCornerAvg': self.__df.tail(1)['LastCornerAvg'].values[0],
+      'Condition3FalongAvg': cond_df.tail(1)['Condition3FalongAvg'].values[0] if not cond_df.empty else None,
     }
 
 # 馬情報保管クラス
