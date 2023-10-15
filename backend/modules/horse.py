@@ -18,10 +18,10 @@ class Horse:
     if not condition in self.__cond_dfs:
       cond_df = self.__df[self.__df['Condition'] == condition].copy()
       self.__cond_dfs[condition] = cond_df
+      # 引数に取った馬場状態と同じ馬場状態の過去３走分の上がり３ハロン
+      cond_df['Condition3FalongAvg'] = cond_df['3Falong'].transform(lambda x: x.rolling(3, min_periods=1).mean().shift(1))
     else:
       cond_df = self.__cond_dfs[condition]
-    # 引数に取った馬場状態と同じ馬場状態の過去３走分の上がり３ハロン
-    cond_df['Condition3FalongAvg'] = cond_df['3Falong'].transform(lambda x: x.rolling(3, min_periods=1).mean().shift(1))
     
     return {
       'ArrivalAvg': self.__df.tail(1)['ArrivalAvg'].values[0],
