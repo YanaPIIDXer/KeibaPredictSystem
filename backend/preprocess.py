@@ -6,8 +6,8 @@ import pickle
 df = pd.read_csv('./datasets/origin.csv')
 
 # 時間がかかるので枝刈り
-# 2020年以降のデータを使用する
-df = df[df['Year'] >= 20]
+# 2022年以降のデータを使用する
+df = df[df['Year'] >= 22]
 
 # 日付
 df['Date'] = '20' + df['Year'].astype(str) + '-' + df['Month'].astype(str).apply(lambda x: x.zfill(2)) + '-' + df['Day'].astype(str).apply(lambda x: x.zfill(2))
