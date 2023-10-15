@@ -36,7 +36,7 @@ class Horse:
       '3FalongAvg': self.__df.tail(1)['3FalongAvg'].values[0],
       'LastCornerAvg': self.__df.tail(1)['LastCornerAvg'].values[0],
       'Condition3FalongAvg': cond_df.tail(1)['Condition3FalongAvg'].values[0] if not cond_df.empty else None,
-      'Course3FalongAvg': course_df.tail(1)['Course3FalongAvg'].values[0] if not cond_df.empty else None,
+      'Course3FalongAvg': course_df.tail(1)['Course3FalongAvg'].values[0] if not course_df.empty else None,
     }
 
 # 馬情報保管クラス
