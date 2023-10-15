@@ -40,6 +40,8 @@ class Race:
       data['ArrivalAvg'] = horse_data['ArrivalAvg']
       data['3FalongAvg'] = horse_data['3FalongAvg']
       data['LastCornerAvg'] = horse_data['LastCornerAvg']
+      data['Course3FalongAvg'] = horse_data['Course3FalongAvg']
+      data['Condition3FalongAvg'] = horse_data['Course3FalongAvg']
       no += 1
       data_list.append(data)
     df = pd.DataFrame(data_list)
