@@ -29,7 +29,7 @@ class Race:
       data = {}
       name = info[0]
       jockey = info[1]
-      horse_data = horse_bank.get(name).build(self.__condition)
+      horse_data = horse_bank.get(name).build(self.__course, self.__condition)
       data['No'] = no
       data['Name'] = name
       if self.__result != None:

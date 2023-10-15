@@ -12,9 +12,10 @@ class Horse:
     # 過去３走の最終コーナーの位置取り平均
     self.__df['LastCornerAvg'] = self.__df['LastCorner'].transform(lambda x: x.rolling(3, min_periods=1).mean().shift(1))
     self.__cond_dfs = dict()
+    self.__course_dfs = dict()
 
   # 学習・予測に必要なデータを生成
-  def build(self, condition: str) -> object:
+  def build(self, course: str, condition: str) -> object:
     if not condition in self.__cond_dfs:
       cond_df = self.__df[self.__df['Condition'] == condition].copy()
       self.__cond_dfs[condition] = cond_df
@@ -22,12 +23,20 @@ class Horse:
       cond_df['Condition3FalongAvg'] = cond_df['3Falong'].transform(lambda x: x.rolling(3, min_periods=1).mean().shift(1))
     else:
       cond_df = self.__cond_dfs[condition]
+
+    if not course in self.__course_dfs:
+      course_df = self.__df[self.__df['Course'] == course].copy()
+      self.__course_dfs[course] = course_df
+      course_df['Course3FalongAvg'] = course_df['3Falong'].transform(lambda x: x.rolling(3, min_periods=1).mean().shift(1))
+    else:
+      course_df = self.__course_dfs[course]
     
     return {
       'ArrivalAvg': self.__df.tail(1)['ArrivalAvg'].values[0],
       '3FalongAvg': self.__df.tail(1)['3FalongAvg'].values[0],
       'LastCornerAvg': self.__df.tail(1)['LastCornerAvg'].values[0],
       'Condition3FalongAvg': cond_df.tail(1)['Condition3FalongAvg'].values[0] if not cond_df.empty else None,
+      'Course3FalongAvg': course_df.tail(1)['Course3FalongAvg'].values[0] if not cond_df.empty else None,
     }
 
 # 馬情報保管クラス
