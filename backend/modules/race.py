@@ -1,6 +1,6 @@
 import pandas as pd
 from typing import List
-from .horse import HorseBank
+from .horse import HorseBank, LegType
 
 # レースに出走する馬の情報
 class RaceHorse:
@@ -25,6 +25,7 @@ class Race:
   def build(self, horse_bank: HorseBank) -> pd.DataFrame:
     no = 1
     data_list = []
+    leg_type_count = [0, 0, 0, 0]
     for info in self.__horse_infos:
       data = {}
       name = info[0]
@@ -38,9 +39,17 @@ class Race:
       data['Condition'] = self.__condition
       data['Jockey'] = jockey
       data['LegType'] = horse_data['LegType']
+      ltidx = LegType.leg_type_to_index(data['LegType'])
+      leg_type_count[ltidx] += 1
       no += 1
       data_list.append(data)
     df = pd.DataFrame(data_list)
+
+    # それぞれの脚質を持つ頭数
+    df['FrontRunnerCount'] = leg_type_count[0]
+    df['StalkerCount'] = leg_type_count[1]
+    df['StayRunnerCount'] = leg_type_count[2]
+    df['CloserCount'] = leg_type_count[3]
 
     return df
 
