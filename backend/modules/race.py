@@ -37,6 +37,7 @@ class Race:
       data['Course'] = self.__course
       data['Condition'] = self.__condition
       data['Jockey'] = jockey
+      data['LegType'] = horse_data['LegType']
       no += 1
       data_list.append(data)
     df = pd.DataFrame(data_list)
