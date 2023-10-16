@@ -7,11 +7,16 @@ class Horse:
     self.__df = df.copy().sort_values('Date')
     # 最終コーナーの位置取りの平均から脚質を決定する
     self.__leg_type = LegType.position_to_leg_type(self.__df['LastCorner'].mean())
+    # 距離を走破タイムで除算した指数
+    self.__df['TimeIndex'] = self.__df['Distance'] / self.__df['Time']
+    # TimeIndexの平均
+    self.__time_index_avg = self.__df['TimeIndex'].mean()
 
   # 学習・予測に必要なデータを生成
   def build(self, course: str, condition: str) -> object:
     return {
       'LegType': self.__leg_type,
+      'TimeIndexAvg': self.__time_index_avg,
     }
 
 # 脚質関係のユーティリティクラス

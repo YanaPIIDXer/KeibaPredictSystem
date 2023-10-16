@@ -35,10 +35,12 @@ class Race:
       data['Name'] = name
       if self.__result != None:
         data['IsPlace'] = 1 if no in self.__result else 0
+        data['IsWin'] = 1 if self.__result[0] == no else 0
       data['Course'] = self.__course
       data['Condition'] = self.__condition
       data['Jockey'] = jockey
       data['LegType'] = horse_data['LegType']
+      data['TimeIndexAvg'] = horse_data['TimeIndexAvg']
       ltidx = LegType.leg_type_to_index(data['LegType'])
       leg_type_count[ltidx] += 1
       no += 1
@@ -50,6 +52,8 @@ class Race:
     df['StalkerCount'] = leg_type_count[1]
     df['StayRunnerCount'] = leg_type_count[2]
     df['CloserCount'] = leg_type_count[3]
+
+    df['TimeIndexDiff'] = df['TimeIndexAvg'].mean() - df['TimeIndexAvg']
 
     return df
 
