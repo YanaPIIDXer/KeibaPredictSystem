@@ -37,17 +37,9 @@ class Race:
       data['Course'] = self.__course
       data['Condition'] = self.__condition
       data['Jockey'] = jockey
-      data['ArrivalAvg'] = horse_data['ArrivalAvg']
-      data['3FalongAvg'] = horse_data['3FalongAvg']
-      data['LastCornerAvg'] = horse_data['LastCornerAvg']
-      data['Course3FalongAvg'] = horse_data['Course3FalongAvg']
-      data['Condition3FalongAvg'] = horse_data['Course3FalongAvg']
       no += 1
       data_list.append(data)
     df = pd.DataFrame(data_list)
-
-    t_falong_avg = df['3FalongAvg'].mean()
-    df['3FalongAvgDiff'] = df['3FalongAvg'] - t_falong_avg
 
     return df
 
