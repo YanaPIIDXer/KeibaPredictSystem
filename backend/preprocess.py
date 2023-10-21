@@ -11,21 +11,20 @@ cols = ['RaceID', 'Date'] + [col for col in df if col != 'RaceID' and col != 'Da
 df = df[cols]
 df.drop(['Year', 'Month', 'Day'], axis=1, inplace=True)
 
-# レース情報テーブルを生成
-race_df = df[['RaceID', 'Date', 'RaceNo', 'Place', 'CourseType', 'Distance', 'Condition']].drop_duplicates().reset_index(drop=True)
-
-# レース情報として切り出した情報を撤去
-df.drop(['Date', 'RaceNo', 'Place', 'CourseType', 'Distance', 'Condition'], axis=1, inplace=True)
+# 「阪神芝1200」のようなコースを表すカテゴリ変数を生成
+df['Course'] = df['Place'] + df['CourseType'] + df['Distance'].astype(str)
 
 # 欠損値を処理
-df.fillna(999.9, inplace=True)
+df.dropna(inplace=True)
 
 # 型を成形
+feature_columns = ['Jockey', 'Condition', 'Course']
+df[feature_columns] = df[feature_columns].astype('category')
 df['Popular'] = df['Popular'].astype(np.int32)
 
-# pickleファイルに保存
-with open('./pickles/races.pickle', 'wb') as f:
-  pickle.dump(race_df, f)
-  
-with open('./pickles/results.pickle', 'wb') as f:
+# 件数を絞る
+df = df[(df['Date'] >= '2022/01/01') & (df['Date'] <= '2023/12/31')]
+
+# 保存
+with open('./pickles/datas.pickle', 'wb') as f:
   pickle.dump(df, f)
