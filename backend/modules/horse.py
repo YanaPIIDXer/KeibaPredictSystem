@@ -13,7 +13,11 @@ class Horse:
     self.__time_index_avg = self.__df['TimeIndex'].mean()
 
   # 学習・予測に必要なデータを生成
-  def build(self, course: str, condition: str) -> object:
+  def build(self, date: str, course: str, condition: str) -> object:
+    # 学習用
+    # レース当日以降のデータは無視する
+    df = self.__df[self.__df['Date'] < date]
+    
     return {
       'LegType': self.__leg_type,
       'TimeIndexAvg': self.__time_index_avg,

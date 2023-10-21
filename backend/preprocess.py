@@ -23,6 +23,7 @@ df.drop(columns=['Place', 'CourseType'], axis=1, inplace=True)
 df = df[df['Arrival'] != 0]
 
 # 型を変更
+df['Date'] = pd.to_datetime(df['Date'])
 df['Popular'] = df['Popular'].astype(np.int32)
 df['ArrivalDiff'] = df['ArrivalDiff'].astype(np.float32)
 categorical_features = ['Condition', 'Sex', 'Jockey', 'Course']
@@ -41,10 +42,11 @@ with open('./pickles/horse.pickle', 'wb') as f:
 group = df.groupby('RaceID')
 bank = mdl.RaceBank()
 for id, r_df in group:
+  date = r_df['Date'].values[0]
   course = r_df['Course'].values[0]
   condition = r_df['Condition'].values[0]
   horses = r_df[['Name', 'Jockey']].values
-  race = mdl.Race(course, condition, horses)
+  race = mdl.Race(date, course, condition, horses)
   result = r_df.sort_values('Arrival', inplace=False)['No'].values
   race.set_result(result[0], result[1], result[2])
   bank.add(id, race)

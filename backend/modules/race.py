@@ -11,7 +11,8 @@ class RaceHorse:
 # レース情報クラス
 class Race:
   # コンストラクタ
-  def __init__(self, course: str, condition: str, horse_infos: List):
+  def __init__(self, date: str, course: str, condition: str, horse_infos: List):
+    self.__date = date
     self.__course = course
     self.__condition = condition
     self.__horse_infos = horse_infos
@@ -30,7 +31,7 @@ class Race:
       data = {}
       name = info[0]
       jockey = info[1]
-      horse_data = horse_bank.get(name).build(self.__course, self.__condition)
+      horse_data = horse_bank.get(name).build(self.__date, self.__course, self.__condition)
       data['No'] = no
       data['Name'] = name
       if self.__result != None:
