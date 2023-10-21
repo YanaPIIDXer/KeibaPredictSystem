@@ -24,7 +24,7 @@ df.fillna(999.9, inplace=True)
 df['Popular'] = df['Popular'].astype(np.int32)
 
 # pickleファイルに保存
-with open('./pickles/race.pickle', 'wb') as f:
+with open('./pickles/races.pickle', 'wb') as f:
   pickle.dump(race_df, f)
   
 with open('./pickles/results.pickle', 'wb') as f:
