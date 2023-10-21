@@ -18,7 +18,7 @@ df['Course'] = df['Place'] + df['CourseType'] + df['Distance'].astype(str)
 df.dropna(inplace=True)
 
 # 型を成形
-feature_columns = ['Jockey', 'Condition', 'Course']
+feature_columns = ['Jockey', 'Condition', 'Course', 'Sex']
 df[feature_columns] = df[feature_columns].astype('category')
 df['Popular'] = df['Popular'].astype(np.int32)
 
