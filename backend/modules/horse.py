@@ -17,8 +17,12 @@ class Horse:
     # 学習用
     # レース当日以降のデータは無視する
     df = self.__df[self.__df['Date'] < date]
+
+    df = df[(df['Course'] == course) & (df['Condition'] == condition)]
     
     return {
+      'SameArrivalMean': df['Arrival'].mean(),
+      'Same3FalongMean': df['3Falong'].mean(),
       'LegType': self.__leg_type,
       'TimeIndexAvg': self.__time_index_avg,
     }

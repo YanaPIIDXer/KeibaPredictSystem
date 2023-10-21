@@ -42,6 +42,8 @@ class Race:
       data['Jockey'] = jockey
       data['LegType'] = horse_data['LegType']
       data['TimeIndexAvg'] = horse_data['TimeIndexAvg']
+      data['SameArrivalMean'] = horse_data['SameArrivalMean']
+      data['Same3FalongMean'] = horse_data['Same3FalongMean']
       ltidx = LegType.leg_type_to_index(data['LegType'])
       leg_type_count[ltidx] += 1
       no += 1
