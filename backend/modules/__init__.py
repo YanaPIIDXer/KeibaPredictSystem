@@ -1,2 +1,1 @@
-from .Race import RaceBank
-from .Results import ResultBank
+from .Master import MasterBank
