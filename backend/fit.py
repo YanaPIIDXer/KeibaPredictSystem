@@ -24,7 +24,3 @@ df['Popular'] = df['Popular'].astype(np.int32)
 
 # 件数を絞る
 df = df[(df['Date'] >= '2022/01/01') & (df['Date'] <= '2023/12/31')]
-
-# 保存
-with open('./pickles/datas.pickle', 'wb') as f:
-  pickle.dump(df, f)
