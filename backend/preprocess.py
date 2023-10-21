@@ -15,7 +15,7 @@ df.drop(['Year', 'Month', 'Day'], axis=1, inplace=True)
 race_df = df[['RaceID', 'Date', 'RaceNo', 'Place', 'CourseType', 'Distance', 'Condition']].drop_duplicates().reset_index(drop=True)
 
 # レース情報として切り出した情報を撤去
-df.drop(['RaceNo', 'Place', 'CourseType', 'Distance', 'Condition'], axis=1, inplace=True)
+df.drop(['Date', 'RaceNo', 'Place', 'CourseType', 'Distance', 'Condition'], axis=1, inplace=True)
 
 # 欠損値を処理
 df.fillna(999.9, inplace=True)
